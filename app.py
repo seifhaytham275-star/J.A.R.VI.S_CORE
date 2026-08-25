@@ -18,11 +18,25 @@ st.markdown("""
         background-color: #050b14;
         color: #00d2ff;
     }
-    h1, h2 {
+    h1, h2, h3 {
         color: #00d2ff;
         text-align: center;
         font-family: 'Courier New', monospace;
         text-shadow: 0 0 15px #00d2ff;
+    }
+    .stButton>button {
+        background-color: transparent;
+        color: #00d2ff;
+        border: 2px solid #00d2ff;
+        border-radius: 10px;
+        width: 100%;
+        font-weight: bold;
+        box-shadow: 0 0 10px #00d2ff;
+        font-family: 'Courier New', monospace;
+    }
+    .stButton>button:hover {
+        background-color: #00d2ff;
+        color: #050b14;
     }
     .jarvis-status {
         background-color: #0a192f;
@@ -30,11 +44,11 @@ st.markdown("""
         padding: 20px;
         border-radius: 12px;
         box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
-        margin-top: 25px;
+        margin-top: 20px;
         color: #ffffff;
         font-family: 'Courier New', monospace;
         text-align: center;
-        font-size: 19px;
+        font-size: 18px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -82,30 +96,44 @@ def ask_jarvis(prompt_text):
         return "System Error, Sir: Neural core connection failed.", 'en'
 
 # عنوان الهولوغرام
-st.markdown("<h1>J.A.R.V.I.S. ACTIVE MIC PROTOCOL</h1>", unsafe_allow_html=True)
+st.markdown("<h1>J.A.R.V.I.S. ACTIVE PROTOCOL</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #ff3366;'>Neural Audio Stream Active, Sir</p>", unsafe_allow_html=True)
 
-# قلب نظام الطاقة التفاعلي (مظهر سيبراني بحت)
+# دائرة الطاقة التفاعلية
 st.markdown("""
-    <div style="display: flex; justify-content: center; align-items: center; margin: 30px 0;">
-        <div style="width: 210px; height: 210px; border: 4px solid #00d2ff; border-radius: 50%; box-shadow: 0 0 45px #00d2ff; display: flex; justify-content: center; align-items: center;">
-            <div style="width: 140px; height: 140px; border: 2px dashed #ff3366; border-radius: 50%; animation: rotation 20s infinite linear;"></div>
+    <div style="display: flex; justify-content: center; align-items: center; margin: 25px 0;">
+        <div style="width: 180px; height: 180px; border: 4px solid #00d2ff; border-radius: 50%; box-shadow: 0 0 35px #00d2ff; display: flex; justify-content: center; align-items: center;">
+            <div style="width: 120px; height: 120px; border: 2px dashed #ff3366; border-radius: 50%;"></div>
         </div>
     </div>
 """, unsafe_allow_html=True)
 
-# الميكروفون المباشر بدون أزرار حشو قديمة
-st.markdown("<h3 style='text-align: center; font-size: 18px; color: #00d2ff;'>Transmit Voice Command Below:</h3>", unsafe_allow_html=True)
-audio = mic_recorder(
-    start_prompt="🔴 Start Voice Link",
-    stop_prompt="⏹️ Disconnect & Process",
-    key='live_mic_core'
-)
+# إضافة خانة إدخال نصي ذكية وسريعة (عشان تكتب أو تقولي اللي في دماغك ويرد عليك فوراً بذكاء وبدون ردود محفوظة)
+st.markdown("<h3 style='text-align: center; font-size: 16px; color: #00d2ff;'>Direct Neural Command Link:</h3>", unsafe_allow_html=True)
+user_input = st.text_input("", placeholder="Type your instruction here, Sir (e.g., How are you? / عامل إيه يا جارفيس)...", key="neural_input")
 
-if audio:
-    # محاكاة تلقي واستجابة النظام الصوتي فور التسجيل
-    signal_prompt = "Acknowledge live voice transmission and report combat readiness, Sir."
-    response, lang_type = ask_jarvis(signal_prompt)
-    
+if user_input:
+    response, lang_type = ask_jarvis(user_input)
+    st.markdown(f"<div class='jarvis-status'><b>J.A.R.V.I.S.:</b> {response}</div>", unsafe_allow_html=True)
+    speak_response(response, lang=lang_type)
+
+# لوحة الاختصارات السريعة (الواتساب، البلاي ليست، وسامسونج هيلث)
+st.markdown("<h3 style='text-align: center; margin-top: 30px; font-size: 18px;'>Tactical Control Shortcuts</h3>", unsafe_allow_html=True)
+
+col1, col2 = st.columns(2)
+with col1:
+    if st.button("🎵 Mood Fire Playlist"):
+        response, lang_type = ask_jarvis("Initialize Mood Fire playlist and report status, Sir.")
+        st.markdown(f"<div class='jarvis-status'><b>J.A.R.V.I.S.:</b> {response}</div>", unsafe_allow_html=True)
+        speak_response(response, lang=lang_type)
+
+with col2:
+    if st.button("💬 WhatsApp Dispatch"):
+        response, lang_type = ask_jarvis("أمرك يا باشا، جاهز لتنفيذ وإرسال رسالة الواتساب بدقة.")
+        st.markdown(f"<div class='jarvis-status'><b>J.A.R.V.I.S.:</b> {response}</div>", unsafe_allow_html=True)
+        speak_response(response, lang=lang_type)
+
+if st.button("❤️ Synchronize Samsung Health"):
+    response, lang_type = ask_jarvis("Report on Samsung Health biometric synchronization status, Sir.")
     st.markdown(f"<div class='jarvis-status'><b>J.A.R.V.I.S.:</b> {response}</div>", unsafe_allow_html=True)
     speak_response(response, lang=lang_type)
