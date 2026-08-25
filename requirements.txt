@@ -1,0 +1,4 @@
+streamlit
+groq
+pydantic
+streamlit-mic-recorder
