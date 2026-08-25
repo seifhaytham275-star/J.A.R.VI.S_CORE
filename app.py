@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_mic_recorder import mic_recorder
 
 # إعدادات صفحة جارفيس السحابية
 st.set_page_config(
@@ -48,6 +49,18 @@ st.markdown("""
         </div>
     </div>
 """, unsafe_allow_html=True)
+
+# قسم الإدخال الصوتي (مايك جارفيس)
+st.subheader("Voice Command Protocol")
+audio = mic_recorder(
+    start_prompt="🎙️ اضغط للتحدث مع جارفيس",
+    stop_prompt="⏹️ إيقاف التسجيل",
+    key='jarvis_mic'
+)
+
+if audio:
+    st.audio(audio['bytes'])
+    st.success("Jarvis: Audio signal received, Sir. Processing command...")
 
 # أزرار التحكم السريعة
 st.subheader("Control Panel")
